@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreLka — уютное логово доброго волька</title>
+  <meta name="description" content="GreLka — добрый и дружелюбный антропоморфный волк. Игровые стримы, киновечера и уютное общение на Twitch." />
+  <meta name="theme-color" content="#05070b" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <canvas id="ambience" aria-hidden="true"></canvas>
+
+  <div class="background-sky" aria-hidden="true">
+    <div class="aurora aurora-one"></div>
+    <div class="aurora aurora-two"></div>
+    <div class="aurora aurora-three"></div>
+    <div class="den-light"></div>
+    <div class="paw-field"></div>
+    <div class="grain"></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="К началу">
+      <span class="brand-mark">G</span>
+      <span>
+        <strong>GreLka</strong>
+        <small>cozy wolf den</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Навигация">
+      <a href="#about">О вольке</a>
+      <a href="#streams">Стримы</a>
+      <a href="#lodge">Атмосфера</a>
+      <a href="#gallery">Галерея</a>
+      <a href="#contacts">Связь</a>
+    </nav>
+
+    <a class="top-cta" href="https://www.twitch.tv/grelka_wolf" target="_blank" rel="noopener noreferrer">
+      Twitch
+    </a>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow" data-reveal>🐾 добро пожаловать в логово</div>
+
+          <h1 class="hero-title" data-reveal>
+            GreLka
+            <span>добрый вольк для уютных вечеров</span>
+          </h1>
+
+          <p class="hero-text" data-reveal>
+            Игры, киновечера и спокойные посиделки на стримах. Здесь можно
+            просто расслабиться, поговорить обо всём или тихо посидеть рядом
+            со стаей после долгого дня.
+          </p>
+
+          <div class="hero-actions" data-reveal>
+            <a class="btn btn-primary" href="https://www.twitch.tv/grelka_wolf" target="_blank" rel="noopener noreferrer">
+              Войти в логово
+            </a>
+            <a class="btn btn-ghost" href="#streams">Что бывает на стримах</a>
+          </div>
+
+          <div class="mood-card" data-reveal>
+            <div>
+              <span>Сейчас в логове</span>
+              <strong id="moodTitle">🎮 Игровой стрим</strong>
+              <p id="moodText">Проходим, обсуждаем, иногда героически страдаем с боссами.</p>
+            </div>
+            <button class="mood-next" id="moodNext" aria-label="Сменить настроение">↻</button>
+          </div>
+
+          <div class="quick-signals" data-reveal aria-label="Быстрые сигналы">
+            <button class="signal-chip active" data-mood="0">🎮 игры</button>
+            <button class="signal-chip" data-mood="1">🎬 кино</button>
+            <button class="signal-chip" data-mood="2">☕ чат</button>
+            <button class="signal-chip" data-mood="3">🌙 ночь</button>
+          </div>
+        </div>
+
+        <aside class="wolf-card" data-reveal>
+          <div class="portrait-wrap" id="wolfPortrait" title="Нажми несколько раз">
+            <img src="assets/grelka-main.png" alt="GreLka — антропоморфный волк" />
+            <div class="eye-glow" aria-hidden="true"></div>
+            <div class="portrait-badge">
+              <span>species</span>
+              <strong>anthro wolf</strong>
+            </div>
+            <div class="click-counter" id="clickCounter">0 / 5</div>
+          </div>
+
+          <div class="wolf-stats">
+            <div>
+              <span>характер</span>
+              <strong>добрый · спокойный</strong>
+            </div>
+            <div>
+              <span>акцент</span>
+              <strong>синие глаза</strong>
+            </div>
+            <div>
+              <span>вайб</span>
+              <strong>уютная ночь</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="wrap split">
+        <div class="image-stack" data-reveal>
+          <img class="stack-main" src="assets/grelka-avatar.png" alt="Портрет GreLka с синими глазами" />
+          <img class="stack-float" src="assets/grelka-about.png" alt="Арт GreLka в спокойном образе" />
+        </div>
+
+        <div class="section-copy">
+          <div class="eyebrow" data-reveal>о персонаже</div>
+          <h2 data-reveal>Тёмный снаружи. Тёплый внутри.</h2>
+
+          <p data-reveal>
+            Я — <b>GreLka</b>, добрый и дружелюбный вольк. Люблю игры,
+            уютные посиделки и тёплое общение на стримах. Иногда могу
+            залипнуть во что-нибудь интересное, иногда — просто болтать обо всяком.
+          </p>
+
+          <p data-reveal>
+            Мне нравится атмосфера антропоморфных персонажей и всё, что с этим
+            связано. На стримах я стараюсь, чтобы всем было комфортно и спокойно.
+            Буду рад видеть тебя у себя — за фоллов отдельное спасибо 💙
+          </p>
+
+          <div class="spec-grid" data-reveal>
+            <div><span>ник</span><strong>GreLka</strong></div>
+            <div><span>вид</span><strong>антропоморфный волк</strong></div>
+            <div><span>глаза</span><strong>ярко-синие</strong></div>
+            <div><span>атмосфера</span><strong>уют · игры · стая</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section streams" id="streams">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-reveal>что бывает на стримах</div>
+            <h2 data-reveal>Форматы логова</h2>
+          </div>
+          <p data-reveal>Не обязательно быть громким. Можно писать в чат, можно смотреть молча — главное, чтобы было спокойно.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card" data-reveal>
+            <span class="card-icon">🎮</span>
+            <h3>Игры</h3>
+            <p>Проходим, залипаем, обсуждаем, иногда весело проигрываем и всё равно идём дальше.</p>
+          </article>
+
+          <article class="card" data-reveal>
+            <span class="card-icon">🎬</span>
+            <h3>Киновечера</h3>
+            <p>Смотрим вместе, делимся эмоциями и отдыхаем в спокойной атмосфере.</p>
+          </article>
+
+          <article class="card" data-reveal>
+            <span class="card-icon">☕</span>
+            <h3>Посиделки</h3>
+            <p>Болтаем обо всём: игры, персонажи, фандом, идеи, мемы и просто жизнь.</p>
+          </article>
+        </div>
+
+        <div class="den-code" data-reveal>
+          <div>
+            <span class="mono">кодекс логова</span>
+            <h3>Здесь должно быть комфортно</h3>
+          </div>
+
+          <ol>
+            <li>Уважай других участников стаи.</li>
+            <li>Без токсичности и давления.</li>
+            <li>Можно быть тихим зрителем.</li>
+            <li>Игры, мемы и уют приветствуются.</li>
+            <li>Спокойствие — часть атмосферы.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section lodge" id="lodge">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-reveal>интерактив логова</div>
+            <h2 data-reveal>Маленькие фишки для стаи</h2>
+          </div>
+          <p data-reveal>Немного живости: команды чата, волчий сигнал и тёплая фраза вечера.</p>
+        </div>
+
+        <div class="lodge-grid">
+          <article class="lodge-panel command-panel" data-reveal>
+            <span class="mono">chat commands</span>
+            <h3>Команды для чата</h3>
+            <p>Нажми на команду — она скопируется, а сайт мягко подмигнёт.</p>
+
+            <div class="command-list">
+              <button data-copy="!tg">!tg</button>
+              <button data-copy="!discord">!discord</button>
+              <button data-copy="!lurk">!lurk</button>
+              <button data-copy="!follow">!follow</button>
+            </div>
+          </article>
+
+          <article class="lodge-panel oracle-panel" data-reveal>
+            <span class="mono">warm oracle</span>
+            <h3>Фраза вечера</h3>
+            <p id="oracleText">Тихий зритель — тоже часть стаи.</p>
+            <button class="btn btn-ghost compact" id="oracleBtn">Дать знак</button>
+          </article>
+
+          <article class="lodge-panel signal-panel" data-reveal>
+            <span class="mono">pack signal</span>
+            <h3>Волчий сигнал</h3>
+            <p>Для моментов, когда хочется просто сказать: “я здесь”.</p>
+            <button class="btn btn-primary compact" id="packSignal">Подать сигнал</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery" id="gallery">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" data-reveal>галерея образа</div>
+            <h2 data-reveal>GreLka в кадре</h2>
+          </div>
+          <p data-reveal>Нажми на изображение, чтобы открыть его крупнее.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <button class="gallery-card" data-title="Спокойный взгляд" data-reveal>
+            <img src="assets/grelka-avatar.png" alt="Спокойный портрет GreLka" />
+            <span>Спокойный взгляд</span>
+          </button>
+
+          <button class="gallery-card tall" data-title="Ночной образ" data-reveal>
+            <img src="assets/grelka-main.png" alt="GreLka в синей футболке" />
+            <span>Ночной образ</span>
+          </button>
+
+          <button class="gallery-card" data-title="Сила без агрессии" data-reveal>
+            <img src="assets/grelka-about.png" alt="GreLka в сильном спокойном образе" />
+            <span>Сила без агрессии</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contacts" id="contacts">
+      <div class="wrap contact-panel" data-reveal>
+        <div>
+          <div class="eyebrow">связь со стаей</div>
+          <h2>Заходи на огонёк</h2>
+          <p>
+            Буду рад видеть тебя на Twitch. Приходи на игры, киновечера
+            или просто уютно посидеть в чате.
+          </p>
+        </div>
+
+        <div class="social-list">
+          <a href="https://www.twitch.tv/grelka_wolf" target="_blank" rel="noopener noreferrer">
+            <span>Twitch</span>
+            <strong>GreLka_WoLF</strong>
+          </a>
+          <a href="https://discord.gg/VCQ6ybB88q" target="_blank" rel="noopener noreferrer">
+            <span>Discord</span>
+            <strong>Discord</strong>
+          </a>
+          <a href="https://t.me/GreLka_W0LF" target="_blank" rel="noopener noreferrer">
+            <span>Telegram</span>
+            <strong>Волчья пещерка 🐺🏕</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span>© 2026 GreLka · уютное логово доброго волька</span>
+      <button id="toTop" aria-label="Наверх">↑</button>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Закрыть">×</button>
+    <figure>
+      <img id="lightboxImg" src="" alt="" />
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
