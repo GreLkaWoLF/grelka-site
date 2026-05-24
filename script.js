@@ -16,7 +16,7 @@
 
   $$("[data-reveal]").forEach((node) => revealObserver.observe(node));
 
-  // Ambient sky: stars, fireflies, wisps and soft constellation lines
+  // Ambient sky: stars, fireflies, wisps and soft constellation lines 
   const canvas = $("#ambience");
   const ctx = canvas.getContext("2d", { alpha: true });
   let width = 0;
