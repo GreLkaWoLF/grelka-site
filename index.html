@@ -69,6 +69,9 @@
             <a class="btn btn-primary" href="https://www.twitch.tv/grelka_wolf" target="_blank" rel="noopener noreferrer">
               Войти в логово
             </a>
+            <button class="btn btn-secret-game" id="tetrisOpenBtn" type="button">
+              Нажми на меня
+            </button>
             <a class="btn btn-ghost" href="#streams">Что бывает на стримах</a>
           </div>
 
@@ -310,6 +313,75 @@
       </figcaption>
     </figure>
     <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Следующий кадр">›</button>
+  </div>
+
+
+  <div class="tetris-shroud" id="tetrisShroud" aria-hidden="true">
+    <div class="tetris-modal" role="dialog" aria-modal="true" aria-labelledby="tetrisTitle">
+      <button class="tetris-close" id="tetrisClose" type="button" aria-label="Закрыть тетрис">×</button>
+
+      <div class="tetris-head">
+        <div>
+          <span class="mono">секрет логова</span>
+          <h2 id="tetrisTitle">Wolf Tetris</h2>
+          <p>Собирай линии, держи темп и бей свой рекорд. Прогресс сохраняется в браузере.</p>
+        </div>
+
+        <div class="tetris-scoreboard">
+          <div><span>Счёт</span><strong id="tetrisScore">0</strong></div>
+          <div><span>Рекорд</span><strong id="tetrisBest">0</strong></div>
+          <div><span>Линии</span><strong id="tetrisLines">0</strong></div>
+        </div>
+      </div>
+
+      <div class="tetris-layout">
+        <div class="tetris-stage">
+          <canvas id="tetrisCanvas" width="300" height="600" aria-label="Поле игры Тетрис"></canvas>
+          <div class="tetris-overlay" id="tetrisOverlay">
+            <strong id="tetrisOverlayTitle">Нажми старт</strong>
+            <span id="tetrisOverlayText">Управление: ← → двигать, ↑ повернуть, ↓ ускорить, Space — падение, P — пауза.</span>
+          </div>
+        </div>
+
+        <aside class="tetris-side">
+          <div class="tetris-next">
+            <span class="mono">следующая фигура</span>
+            <canvas id="tetrisNext" width="120" height="120" aria-label="Следующая фигура"></canvas>
+          </div>
+
+          <div class="tetris-progress-card">
+            <div class="tetris-progress-label">
+              <span>До нового рекорда</span>
+              <strong id="tetrisProgressText">0%</strong>
+            </div>
+            <div class="tetris-progress"><span id="tetrisProgress"></span></div>
+          </div>
+
+          <div class="tetris-controls">
+            <button class="btn btn-primary compact" id="tetrisStart" type="button">Старт</button>
+            <button class="btn btn-ghost compact" id="tetrisPause" type="button">Пауза</button>
+            <button class="btn btn-ghost compact" id="tetrisResetBest" type="button">Сброс рекорда</button>
+          </div>
+
+          <div class="tetris-mobile-controls" aria-label="Управление тетрисом">
+            <button data-tetris-control="left" type="button">←</button>
+            <button data-tetris-control="rotate" type="button">↻</button>
+            <button data-tetris-control="right" type="button">→</button>
+            <button data-tetris-control="down" type="button">↓</button>
+            <button data-tetris-control="drop" type="button">DROP</button>
+          </div>
+
+          <div class="tetris-help">
+            <b>Управление</b>
+            <span>← / → — движение</span>
+            <span>↑ — поворот</span>
+            <span>↓ — ускорение</span>
+            <span>Space — бросить вниз</span>
+            <span>P — пауза</span>
+          </div>
+        </aside>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
