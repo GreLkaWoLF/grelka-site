@@ -104,20 +104,16 @@
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
-      p.tw += 0.6;
+      p.tw += 0.016;
 
       const dx = p.x - mouse.x;
-const dy = p.y - mouse.y;
-const dist = Math.hypot(dx, dy);
+      const dy = p.y - mouse.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 130) {
+        p.x += dx / 1100;
+        p.y += dy / 1100;
+      }
 
-if (dist < 300) {
-  const force = (300 - dist) / 300; // чем ближе курсор, тем сильнее толчок
-  const angleX = dx / (dist || 1);
-  const angleY = dy / (dist || 1);
-
-  p.x += angleX * force * 1;
-  p.y += angleY * force * 1;
-}
       if (p.y < -30 || p.y > height + 30 || p.x < -40 || p.x > width + 40) {
         Object.assign(p, createParticle(false));
       }
@@ -344,37 +340,160 @@ if (dist < 300) {
     );
   });
 
-  // Gallery lightbox
+  // Enhanced gallery: filters, feature card, 3D hover and keyboard lightbox navigation
   const lightbox = $("#lightbox");
   const lightboxImg = $("#lightboxImg");
   const lightboxCaption = $("#lightboxCaption");
+  const lightboxDescription = $("#lightboxDescription");
+  const lightboxCounter = $("#lightboxCounter");
+  const galleryItems = $$(".gallery-item");
+  let visibleGalleryItems = [...galleryItems];
+  let activeGalleryIndex = 0;
+
+  function padGalleryNumber(number) {
+    return String(number).padStart(2, "0");
+  }
+
+  function setFeatureFromItem(item) {
+    const featureImg = $("#galleryFeatureImg");
+    const featureTitle = $("#galleryFeatureTitle");
+    const featureDesc = $("#galleryFeatureDesc");
+    const featureBtn = $("#galleryFeatureBtn");
+    const featureOpen = $("#galleryFeatureOpen");
+    if (!item || !featureImg) return;
+
+    featureImg.src = item.dataset.full;
+    featureImg.alt = `${item.dataset.title} — GreLka`;
+    featureTitle.textContent = item.dataset.title;
+    featureDesc.textContent = item.dataset.desc;
+    featureBtn.dataset.galleryIndex = item.dataset.galleryIndex;
+    featureOpen.dataset.galleryIndex = item.dataset.galleryIndex;
+
+    featureImg.animate(
+      [{ opacity: 0, transform: "scale(1.025)" }, { opacity: 1, transform: "scale(1)" }],
+      { duration: 360, easing: "cubic-bezier(.2,.8,.2,1)" }
+    );
+  }
+
+  function refreshVisibleGalleryItems() {
+    visibleGalleryItems = galleryItems.filter((item) => !item.classList.contains("is-hidden"));
+  }
+
+  function openLightboxByItem(item) {
+    if (!item || !lightbox) return;
+    refreshVisibleGalleryItems();
+    activeGalleryIndex = Math.max(0, visibleGalleryItems.indexOf(item));
+
+    lightboxImg.src = item.dataset.full;
+    lightboxImg.alt = `${item.dataset.title} — GreLka`;
+    lightboxCaption.textContent = item.dataset.title;
+    lightboxDescription.textContent = item.dataset.desc;
+    lightboxCounter.textContent = `${padGalleryNumber(activeGalleryIndex + 1)} / ${padGalleryNumber(visibleGalleryItems.length)}`;
+    lightbox.classList.add("show");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function openLightboxByIndex(index) {
+    const item = galleryItems.find((node) => node.dataset.galleryIndex === String(index));
+    openLightboxByItem(item);
+  }
 
   function closeLightbox() {
+    if (!lightbox) return;
     lightbox.classList.remove("show");
     lightbox.setAttribute("aria-hidden", "true");
     lightboxImg.src = "";
     document.body.style.overflow = "";
   }
 
-  $$(".gallery-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      const img = $("img", card);
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightboxCaption.textContent = card.dataset.title || img.alt;
-      lightbox.classList.add("show");
-      lightbox.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
+  function moveLightbox(direction) {
+    if (!lightbox?.classList.contains("show") || !visibleGalleryItems.length) return;
+    activeGalleryIndex = (activeGalleryIndex + direction + visibleGalleryItems.length) % visibleGalleryItems.length;
+    const item = visibleGalleryItems[activeGalleryIndex];
+
+    lightboxImg.animate(
+      [{ opacity: 0, transform: "scale(0.985)" }, { opacity: 1, transform: "scale(1)" }],
+      { duration: 260, easing: "cubic-bezier(.2,.8,.2,1)" }
+    );
+    lightboxImg.src = item.dataset.full;
+    lightboxImg.alt = `${item.dataset.title} — GreLka`;
+    lightboxCaption.textContent = item.dataset.title;
+    lightboxDescription.textContent = item.dataset.desc;
+    lightboxCounter.textContent = `${padGalleryNumber(activeGalleryIndex + 1)} / ${padGalleryNumber(visibleGalleryItems.length)}`;
+    setFeatureFromItem(item);
+  }
+
+  galleryItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      setFeatureFromItem(item);
+      openLightboxByItem(item);
+    });
+
+    item.addEventListener("pointermove", (event) => {
+      const rect = item.getBoundingClientRect();
+      const px = (event.clientX - rect.left) / rect.width;
+      const py = (event.clientY - rect.top) / rect.height;
+      const rx = (0.5 - py) * 7;
+      const ry = (px - 0.5) * 9;
+      item.style.setProperty("--rx", `${rx}deg`);
+      item.style.setProperty("--ry", `${ry}deg`);
+      item.style.setProperty("--gx", `${px * 100}%`);
+      item.style.setProperty("--gy", `${py * 100}%`);
+    });
+
+    item.addEventListener("pointerleave", () => {
+      item.style.setProperty("--rx", "0deg");
+      item.style.setProperty("--ry", "0deg");
+      item.style.setProperty("--gx", "50%");
+      item.style.setProperty("--gy", "50%");
     });
   });
 
+  $$(".gallery-filter").forEach((button) => {
+    button.addEventListener("click", () => {
+      const filter = button.dataset.filter;
+      $$(".gallery-filter").forEach((node) => node.classList.remove("active"));
+      button.classList.add("active");
+
+      galleryItems.forEach((item, index) => {
+        const show = filter === "all" || item.dataset.category === filter;
+        item.classList.toggle("is-hidden", !show);
+        if (show) {
+          item.classList.remove("filter-pop");
+          void item.offsetWidth;
+          item.classList.add("filter-pop");
+          item.style.animationDelay = `${Math.min(index * 28, 180)}ms`;
+        }
+      });
+
+      refreshVisibleGalleryItems();
+      setFeatureFromItem(visibleGalleryItems[0]);
+      showToast(filter === "all" ? "Показаны все кадры GreLka" : "Галерея мягко перестроилась");
+    });
+  });
+
+  [$("#galleryFeatureBtn"), $("#galleryFeatureOpen")].forEach((button) => {
+    button?.addEventListener("click", () => openLightboxByIndex(button.dataset.galleryIndex));
+  });
+
+  $("#galleryFeatureOpen")?.addEventListener("pointermove", (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--fx", `${((event.clientX - rect.left) / rect.width) * 100}%`);
+    event.currentTarget.style.setProperty("--fy", `${((event.clientY - rect.top) / rect.height) * 100}%`);
+  });
+
   $("#lightboxClose")?.addEventListener("click", closeLightbox);
+  $("#lightboxPrev")?.addEventListener("click", () => moveLightbox(-1));
+  $("#lightboxNext")?.addEventListener("click", () => moveLightbox(1));
   lightbox?.addEventListener("click", (event) => {
     if (event.target === lightbox) closeLightbox();
   });
 
   window.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") moveLightbox(-1);
+    if (event.key === "ArrowRight") moveLightbox(1);
   });
 
   // Type WOLF anywhere for a hidden greeting

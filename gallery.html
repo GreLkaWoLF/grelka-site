@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Галерея GreLka</title>
+  <meta name="description" content="Галерея артов GreLka: портреты, стиль, уютные кадры и лор персонажа." />
+  <meta name="theme-color" content="#05070b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="gallery-page-body gallery-v5">
+  <canvas id="ambience" aria-hidden="true"></canvas>
+
+  <div class="background-sky" aria-hidden="true">
+    <div class="aurora aurora-one"></div>
+    <div class="aurora aurora-two"></div>
+    <div class="aurora aurora-three"></div>
+    <div class="den-light"></div>
+    <div class="paw-field"></div>
+    <div class="grain"></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html#home" aria-label="На главную">
+      <span class="brand-mark">G</span>
+      <span>
+        <strong>GreLka</strong>
+        <small>gallery den</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Навигация">
+      <a href="index.html#about">О вольке</a>
+      <a href="index.html#streams">Стримы</a>
+      <a href="index.html#lodge">Атмосфера</a>
+      <a class="active" href="gallery.html">Галерея</a>
+      <a href="index.html#contacts">Связь</a>
+    </nav>
+
+    <a class="top-cta" href="https://www.twitch.tv/grelka_wolf" target="_blank" rel="noopener noreferrer">Twitch</a>
+  </header>
+
+  <main>
+    <section class="section clean-gallery-hero">
+      <div class="wrap">
+        <div class="clean-gallery-title" data-reveal>
+          <div>
+            <div class="eyebrow">🐺 галерея GreLka</div>
+            <h1>Галерея образа</h1>
+          </div>
+
+          <div class="clean-gallery-actions" aria-label="Фильтры галереи">
+            <button class="clean-filter active" data-filter="all">Все</button>
+            <button class="clean-filter" data-filter="calm">Спокойствие</button>
+            <button class="clean-filter" data-filter="cozy">Уют</button>
+            <button class="clean-filter" data-filter="style">Стиль</button>
+            <button class="clean-filter" data-filter="wild">Сила</button>
+            <button class="clean-filter" data-filter="lore">Лор</button>
+            <button class="clean-filter" data-filter="cinema">Кино</button>
+          </div>
+        </div>
+
+        <section class="clean-viewer" data-reveal aria-label="Просмотрщик галереи">
+          <div class="clean-stage-card">
+            <button class="clean-arrow clean-prev" id="stagePrev" aria-label="Предыдущий кадр">‹</button>
+
+            <div class="clean-stage">
+              <img id="stageImage" src="assets/gallery/full/grelka-01-spokojnyj-vzglyad.webp" alt="Спокойный взгляд — GreLka" />
+              <div class="clean-stage-aura" aria-hidden="true"></div>
+            </div>
+
+            <button class="clean-arrow clean-next" id="stageNext" aria-label="Следующий кадр">›</button>
+          </div>
+
+          <aside class="clean-info">
+            <div class="clean-info-top">
+              <span class="stage-counter" id="stageCounter">01 / 12</span>
+              <span class="mono" id="stageTag">Портрет</span>
+            </div>
+
+            <h2 id="stageTitle">Спокойный взгляд</h2>
+            <p id="stageDesc">Синие глаза, тишина и мягкая сила.</p>
+
+            <div class="stage-actions">
+              <button class="btn btn-primary compact" id="openStageLightbox">Открыть крупно</button>
+              <button class="btn btn-ghost compact" id="shuffleGallery">Случайный кадр</button>
+            </div>
+
+            <div class="gallery-progress" aria-hidden="true"><span id="galleryProgress"></span></div>
+          </aside>
+        </section>
+
+        <section class="clean-filmstrip" data-reveal aria-label="Миниатюры галереи">
+          <button class="film-btn" id="filmPrev" aria-label="Прокрутить миниатюры назад">‹</button>
+          <div class="film-viewport" id="filmViewport">
+            <div class="film-track" id="filmTrack"></div>
+          </div>
+          <button class="film-btn" id="filmNext" aria-label="Прокрутить миниатюры вперёд">›</button>
+        </section>
+      </div>
+    </section>
+
+    <section class="section clean-album-section">
+      <div class="wrap">
+        <div class="clean-section-head" data-reveal>
+          <div class="eyebrow">все кадры</div>
+          <h2>Альбом</h2>
+        </div>
+
+        <div class="clean-album" id="galleryAlbum" data-reveal></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer gallery-footer">
+    <div class="wrap footer-inner gallery-footer-inner">
+      <span>© 2026 GreLka · галерея образа</span>
+
+      <div class="gallery-footer-actions">
+        <a class="gallery-footer-btn" href="index.html" aria-label="Вернуться на главную страницу">
+          <span>⌂</span>
+          На главную
+        </a>
+
+        <button class="gallery-footer-btn gallery-footer-top" id="galleryToTop" type="button" aria-label="Подняться наверх">
+          <span>↑</span>
+          Наверх
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="gallery-veil" id="galleryLightbox" aria-hidden="true">
+    <button class="gallery-veil-close" id="galleryLightboxClose" aria-label="Закрыть">×</button>
+    <button class="gallery-veil-arrow veil-prev" id="galleryLightboxPrev" aria-label="Предыдущее фото">‹</button>
+
+    <figure>
+      <img id="galleryLightboxImg" src="" alt="" />
+      <figcaption>
+        <span id="galleryLightboxCounter">01 / 12</span>
+        <strong id="galleryLightboxTitle">Спокойный взгляд</strong>
+        <small id="galleryLightboxDesc">Синие глаза, тишина и мягкая сила.</small>
+      </figcaption>
+    </figure>
+
+    <button class="gallery-veil-arrow veil-next" id="galleryLightboxNext" aria-label="Следующее фото">›</button>
+  </div>
+
+  <script>
+    window.GRELKA_GALLERY = [
+    {
+        "title": "Спокойный взгляд",
+        "tag": "Портрет",
+        "category": "calm",
+        "filter": "Спокойствие",
+        "full": "assets/gallery/full/grelka-01-spokojnyj-vzglyad.webp",
+        "thumb": "assets/gallery/thumb/grelka-01-spokojnyj-vzglyad.webp",
+        "desc": "Синие глаза, тишина и мягкая сила."
+    },
+    {
+        "title": "Ночной образ",
+        "tag": "Стрим-аватар",
+        "category": "stream",
+        "filter": "Аватар",
+        "full": "assets/gallery/full/grelka-02-nochnoy-obraz.webp",
+        "thumb": "assets/gallery/thumb/grelka-02-nochnoy-obraz.webp",
+        "desc": "Главный образ доброго волька для стримов."
+    },
+    {
+        "title": "Сила без агрессии",
+        "tag": "Характер",
+        "category": "calm",
+        "filter": "Спокойствие",
+        "full": "assets/gallery/full/grelka-03-sila-bez-agressii.webp",
+        "thumb": "assets/gallery/thumb/grelka-03-sila-bez-agressii.webp",
+        "desc": "Мощный силуэт и спокойный внутренний вайб."
+    },
+    {
+        "title": "Волчий зов",
+        "tag": "Энергия",
+        "category": "wild",
+        "filter": "Сила",
+        "full": "assets/gallery/full/grelka-04-howling-wolf.webp",
+        "thumb": "assets/gallery/thumb/grelka-04-howling-wolf.webp",
+        "desc": "Кадр для яркого момента, алерта или заставки."
+    },
+    {
+        "title": "Пляжный вайб",
+        "tag": "Уют",
+        "category": "cozy",
+        "filter": "Уют",
+        "full": "assets/gallery/full/grelka-05-beach-vibe.webp",
+        "thumb": "assets/gallery/thumb/grelka-05-beach-vibe.webp",
+        "desc": "Лёгкий отдых, болталки и солнечное настроение."
+    },
+    {
+        "title": "Красный режим",
+        "tag": "Боевой образ",
+        "category": "wild",
+        "filter": "Сила",
+        "full": "assets/gallery/full/grelka-06-red-mode.webp",
+        "thumb": "assets/gallery/thumb/grelka-06-red-mode.webp",
+        "desc": "Резкий контраст: красный фон и хищный силуэт."
+    },
+    {
+        "title": "Волчий трон",
+        "tag": "Лор",
+        "category": "lore",
+        "filter": "Лор",
+        "full": "assets/gallery/full/grelka-07-throne.webp",
+        "thumb": "assets/gallery/thumb/grelka-07-throne.webp",
+        "desc": "Атмосферная глава истории персонажа."
+    },
+    {
+        "title": "Белая рубашка",
+        "tag": "Стиль",
+        "category": "style",
+        "filter": "Стиль",
+        "full": "assets/gallery/full/grelka-08-white-shirt.webp",
+        "thumb": "assets/gallery/thumb/grelka-08-white-shirt.webp",
+        "desc": "Сдержанность, контраст и спокойный поворот головы."
+    },
+    {
+        "title": "Особняк",
+        "tag": "Стиль",
+        "category": "style",
+        "filter": "Стиль",
+        "full": "assets/gallery/full/grelka-09-mansion.webp",
+        "thumb": "assets/gallery/thumb/grelka-09-mansion.webp",
+        "desc": "Костюм, тёплый свет и вечерняя элегантность."
+    },
+    {
+        "title": "Дождь",
+        "tag": "Кино",
+        "category": "cinema",
+        "filter": "Кино",
+        "full": "assets/gallery/full/grelka-10-rain.webp",
+        "thumb": "assets/gallery/thumb/grelka-10-rain.webp",
+        "desc": "Мрачный кинематографичный кадр под дождём."
+    },
+    {
+        "title": "Закатная дорога",
+        "tag": "Уют",
+        "category": "cozy",
+        "filter": "Уют",
+        "full": "assets/gallery/full/grelka-11-sunset-road.webp",
+        "thumb": "assets/gallery/thumb/grelka-11-sunset-road.webp",
+        "desc": "Тёплый закат, дорога и расслабленная атмосфера."
+    },
+    {
+        "title": "Досье персонажа",
+        "tag": "Лор",
+        "category": "lore",
+        "filter": "Лор",
+        "full": "assets/gallery/full/grelka-12-dossier.webp",
+        "thumb": "assets/gallery/thumb/grelka-12-dossier.webp",
+        "desc": "Материал для фактов, истории и образа GreLka."
+    }
+];
+  </script>
+  <script src="script.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>

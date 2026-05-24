@@ -39,7 +39,7 @@
       <a href="#about">О вольке</a>
       <a href="#streams">Стримы</a>
       <a href="#lodge">Атмосфера</a>
-      <a href="#gallery">Галерея</a>
+      <a href="gallery.html">Галерея</a>
       <a href="#contacts">Связь</a>
     </nav>
 
@@ -239,32 +239,24 @@
       </div>
     </section>
 
-    <section class="section gallery" id="gallery">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow" data-reveal>галерея образа</div>
-            <h2 data-reveal>GreLka в кадре</h2>
-          </div>
-          <p data-reveal>Нажми на изображение, чтобы открыть его крупнее.</p>
+    <section class="section gallery-teaser" id="gallery">
+      <div class="wrap gallery-teaser-panel" data-reveal>
+        <div class="gallery-teaser-copy">
+          <div class="eyebrow">галерея образа</div>
+          <h2>Кадры GreLka теперь в отдельной вкладке</h2>
+          <p>
+            Я вынес галерею на отдельную страницу: там изображения не обрезаются,
+            есть большой просмотрщик, плавное переключение, миниатюры и фильтры по настроению.
+          </p>
+          <a class="btn btn-primary" href="gallery.html">Открыть галерею</a>
         </div>
 
-        <div class="gallery-grid">
-          <button class="gallery-card" data-title="Спокойный взгляд" data-reveal>
-            <img src="assets/grelka-avatar.png" alt="Спокойный портрет GreLka" />
-            <span>Спокойный взгляд</span>
-          </button>
-
-          <button class="gallery-card tall" data-title="Ночной образ" data-reveal>
-            <img src="assets/grelka-main.png" alt="GreLka в синей футболке" />
-            <span>Ночной образ</span>
-          </button>
-
-          <button class="gallery-card" data-title="Сила без агрессии" data-reveal>
-            <img src="assets/grelka-about.png" alt="GreLka в сильном спокойном образе" />
-            <span>Сила без агрессии</span>
-          </button>
-        </div>
+        <a class="gallery-teaser-collage" href="gallery.html" aria-label="Открыть галерею GreLka">
+          <img src="assets/gallery/thumb/grelka-09-mansion.webp" alt="GreLka — особняк" />
+          <img src="assets/gallery/thumb/grelka-10-rain.webp" alt="GreLka — дождь" />
+          <img src="assets/gallery/thumb/grelka-11-sunset-road.webp" alt="GreLka — закатная дорога" />
+          <span>12 кадров · полный просмотр</span>
+        </a>
       </div>
     </section>
 
@@ -308,10 +300,16 @@
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <button class="lightbox-close" id="lightboxClose" aria-label="Закрыть">×</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Предыдущий кадр">‹</button>
     <figure>
+      <div class="lightbox-counter" id="lightboxCounter">01 / 12</div>
       <img id="lightboxImg" src="" alt="" />
-      <figcaption id="lightboxCaption"></figcaption>
+      <figcaption>
+        <strong id="lightboxCaption">Кадр</strong>
+        <span id="lightboxDescription"></span>
+      </figcaption>
     </figure>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Следующий кадр">›</button>
   </div>
 
   <script src="script.js"></script>
