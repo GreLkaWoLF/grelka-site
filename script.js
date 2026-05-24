@@ -115,8 +115,8 @@ if (dist < 180) {
   const angleX = dx / (dist || 1);
   const angleY = dy / (dist || 1);
 
-  p.x += angleX * force * 5;
-  p.y += angleY * force * 5;
+  p.x += angleX * force * 7;
+  p.y += angleY * force * 7;
 }
 
       if (p.y < -30 || p.y > height + 30 || p.x < -40 || p.x > width + 40) {
