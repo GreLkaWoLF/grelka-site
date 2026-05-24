@@ -107,12 +107,17 @@
       p.tw += 0.016;
 
       const dx = p.x - mouse.x;
-      const dy = p.y - mouse.y;
-      const dist = Math.hypot(dx, dy);
-      if (dist < 130) {
-        p.x += dx / 1100;
-        p.y += dy / 1100;
-      }
+const dy = p.y - mouse.y;
+const dist = Math.hypot(dx, dy);
+
+if (dist < 180) {
+  const force = (180 - dist) / 180;
+  const angleX = dx / (dist || 1);
+  const angleY = dy / (dist || 1);
+
+  p.x += angleX * force * 5;
+  p.y += angleY * force * 5;
+}
 
       if (p.y < -30 || p.y > height + 30 || p.x < -40 || p.x > width + 40) {
         Object.assign(p, createParticle(false));
